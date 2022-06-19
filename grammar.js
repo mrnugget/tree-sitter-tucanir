@@ -13,7 +13,7 @@ module.exports = grammar({
         ', entry:',
         field('entry_block_id', $.id),
         ')',
-        field('blocks', seq($.block))
+        field('blocks', repeat($.block))
       ),
 
     block: $ =>
@@ -23,18 +23,27 @@ module.exports = grammar({
         optional(field('predecessors', $.predecessors)),
         optional(field('successors', $.successors)),
         ':',
-        repeat($._instruction)
+        optional(field('instructions', repeat($.instruction))),
+        field('terminator', $.terminator)
       ),
 
-    _instruction: $ => seq('  ', choice($.move, $._terminator)),
+    instruction: $ =>
+      seq(field('target', $.register), '<-', choice($.move, $.bin_op)),
 
-    move: $ => seq($.register, '<-', field('operand', $._operand)),
+    move: $ => field('operand', $._operand),
 
-    _terminator: $ => seq('terminator:', choice($.goto_terminator)),
+    bin_op: $ =>
+      seq(
+        field('lhs', $._operand),
+        field('operator', choice('+', '-', '>', '<', '<=', '=>', '==', '!=')),
+        field('rhs', $._operand)
+      ),
 
-    goto_terminator: $ => seq('goto', '(', $.id, ')'),
+    terminator: $ => seq('terminator:', choice($.goto)),
 
-    _operand: $ => choice($.register, $.number),
+    goto: $ => seq('goto', '(', $.id, ')'),
+
+    _operand: $ => choice($.register, $.number, $.true, $.false),
 
     successors: $ => seq('(', '->', commaSep($.id), ')'),
     predecessors: $ => seq('(', '<-', commaSep($.id), ')'),
@@ -42,6 +51,9 @@ module.exports = grammar({
     number: $ => /\d+/,
 
     id: $ => /#\d+/,
+
+    true: $ => 'true',
+    false: $ => 'false',
 
     register: $ => /%[\d_]+/,
   },

@@ -55,13 +55,11 @@
           "type": "FIELD",
           "name": "blocks",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "block"
-              }
-            ]
+            "type": "REPEAT",
+            "content": {
+              "type": "SYMBOL",
+              "name": "block"
+            }
           }
         }
       ]
@@ -118,20 +116,48 @@
           "value": ":"
         },
         {
-          "type": "REPEAT",
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "FIELD",
+              "name": "instructions",
+              "content": {
+                "type": "REPEAT",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "instruction"
+                }
+              }
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "FIELD",
+          "name": "terminator",
           "content": {
             "type": "SYMBOL",
-            "name": "_instruction"
+            "name": "terminator"
           }
         }
       ]
     },
-    "_instruction": {
+    "instruction": {
       "type": "SEQ",
       "members": [
         {
+          "type": "FIELD",
+          "name": "target",
+          "content": {
+            "type": "SYMBOL",
+            "name": "register"
+          }
+        },
+        {
           "type": "STRING",
-          "value": "  "
+          "value": "<-"
         },
         {
           "type": "CHOICE",
@@ -142,26 +168,75 @@
             },
             {
               "type": "SYMBOL",
-              "name": "_terminator"
+              "name": "bin_op"
             }
           ]
         }
       ]
     },
     "move": {
+      "type": "FIELD",
+      "name": "operand",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_operand"
+      }
+    },
+    "bin_op": {
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "register"
-        },
-        {
-          "type": "STRING",
-          "value": "<-"
+          "type": "FIELD",
+          "name": "lhs",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_operand"
+          }
         },
         {
           "type": "FIELD",
-          "name": "operand",
+          "name": "operator",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "+"
+              },
+              {
+                "type": "STRING",
+                "value": "-"
+              },
+              {
+                "type": "STRING",
+                "value": ">"
+              },
+              {
+                "type": "STRING",
+                "value": "<"
+              },
+              {
+                "type": "STRING",
+                "value": "<="
+              },
+              {
+                "type": "STRING",
+                "value": "=>"
+              },
+              {
+                "type": "STRING",
+                "value": "=="
+              },
+              {
+                "type": "STRING",
+                "value": "!="
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "rhs",
           "content": {
             "type": "SYMBOL",
             "name": "_operand"
@@ -169,7 +244,7 @@
         }
       ]
     },
-    "_terminator": {
+    "terminator": {
       "type": "SEQ",
       "members": [
         {
@@ -181,13 +256,13 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "goto_terminator"
+              "name": "goto"
             }
           ]
         }
       ]
     },
-    "goto_terminator": {
+    "goto": {
       "type": "SEQ",
       "members": [
         {
@@ -218,6 +293,14 @@
         {
           "type": "SYMBOL",
           "name": "number"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "true"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "false"
         }
       ]
     },
@@ -328,6 +411,14 @@
     "id": {
       "type": "PATTERN",
       "value": "#\\d+"
+    },
+    "true": {
+      "type": "STRING",
+      "value": "true"
+    },
+    "false": {
+      "type": "STRING",
+      "value": "false"
     },
     "register": {
       "type": "PATTERN",

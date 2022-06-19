@@ -1,5 +1,93 @@
 [
   {
+    "type": "bin_op",
+    "named": true,
+    "fields": {
+      "lhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "register",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          }
+        ]
+      },
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "!=",
+            "named": false
+          },
+          {
+            "type": "+",
+            "named": false
+          },
+          {
+            "type": "-",
+            "named": false
+          },
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": "==",
+            "named": false
+          },
+          {
+            "type": "=>",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          }
+        ]
+      },
+      "rhs": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "register",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "block",
     "named": true,
     "fields": {
@@ -9,6 +97,16 @@
         "types": [
           {
             "type": "id",
+            "named": true
+          }
+        ]
+      },
+      "instructions": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "instruction",
             "named": true
           }
         ]
@@ -32,21 +130,17 @@
             "named": true
           }
         ]
+      },
+      "terminator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "terminator",
+            "named": true
+          }
+        ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "goto_terminator",
-          "named": true
-        },
-        {
-          "type": "move",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -64,8 +158,8 @@
         ]
       },
       "blocks": {
-        "multiple": false,
-        "required": true,
+        "multiple": true,
+        "required": false,
         "types": [
           {
             "type": "block",
@@ -96,7 +190,7 @@
     }
   },
   {
-    "type": "goto_terminator",
+    "type": "goto",
     "named": true,
     "fields": {},
     "children": {
@@ -111,17 +205,13 @@
     }
   },
   {
-    "type": "move",
+    "type": "instruction",
     "named": true,
     "fields": {
-      "operand": {
+      "target": {
         "multiple": false,
         "required": true,
         "types": [
-          {
-            "type": "number",
-            "named": true
-          },
           {
             "type": "register",
             "named": true
@@ -134,10 +224,42 @@
       "required": true,
       "types": [
         {
-          "type": "register",
+          "type": "bin_op",
+          "named": true
+        },
+        {
+          "type": "move",
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "move",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "register",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -186,7 +308,22 @@
     }
   },
   {
-    "type": "  ",
+    "type": "terminator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "goto",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "!=",
     "named": false
   },
   {
@@ -202,11 +339,19 @@
     "named": false
   },
   {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
     "named": false
   },
   {
     "type": ", entry:",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {
@@ -218,7 +363,27 @@
     "named": false
   },
   {
+    "type": "<",
+    "named": false
+  },
+  {
     "type": "<-",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "==",
+    "named": false
+  },
+  {
+    "type": "=>",
+    "named": false
+  },
+  {
+    "type": ">",
     "named": false
   },
   {
@@ -228,6 +393,10 @@
   {
     "type": "block_funk",
     "named": false
+  },
+  {
+    "type": "false",
+    "named": true
   },
   {
     "type": "goto",
@@ -248,5 +417,9 @@
   {
     "type": "terminator:",
     "named": false
+  },
+  {
+    "type": "true",
+    "named": true
   }
 ]

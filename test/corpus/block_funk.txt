@@ -15,13 +15,46 @@ block #1 (<- #3, #5) (-> #6):
     (id)
     (id)
     (id)
-    (block 
+    (block
       (id)
       (predecessors (id) (id))
       (successors (id))
 
-      (move (register) (number))
-      (move (register) (register))
+      (instruction (register) (move (number)))
+      (instruction (register) (move (register)))
 
-      (goto_terminator (id))
-      )))
+      (terminator (goto (id))))))
+
+==================
+Block function with multiple blocks
+==================
+
+block_funk #1(node_id: #33, entry: #1)
+block #2 (<- #4):
+  terminator: goto(#4)
+
+block #4 (<- #3, #5) (-> #6):
+  %7_0 <- %2_1 + 1
+  %2_2 <- %7_0
+  terminator: goto(#2)
+
+---
+
+(source_file
+  (block_funk
+    (id)
+    (id)
+    (id)
+    (block
+      (id)
+      (predecessors (id))
+
+      (terminator (goto (id))))
+    (block
+      (id)
+      (predecessors (id) (id))
+      (successors (id))
+
+      (instruction (register) (bin_op (register) (number)))
+      (instruction (register) (move (register)))
+      (terminator (goto (id))))))
