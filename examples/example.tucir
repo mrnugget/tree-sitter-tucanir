@@ -1,0 +1,28 @@
+block_funk #1(node_id: #33, entry: #1)
+block #1 (-> #6):
+  %1_0 <- 5
+  %2_0 <- 0
+  terminator: goto(#6)
+
+block #6 (<- #1, #4) (-> #2, #3):
+  %2_1 <- phi(var(#1, %2_0), var(#4, %2_2))
+  %8_0 <- %2_1 < 10
+  terminator: if(%8_0, (#3, #2))
+
+block #2 (<- #6):
+  terminator: return(0)
+
+block #3 (<- #6) (-> #4, #5):
+  %3_0 <- %2_1 < %1_0
+  terminator: if(%3_0, (#5, #4))
+
+block #4 (<- #3, #5) (-> #6):
+  %6_0 <- call print_num, args: 1
+  %7_0 <- %2_1 + 1
+  %2_2 <- %7_0
+  terminator: goto(#6)
+
+block #5 (<- #3) (-> #4):
+  %4_0 <- call print_num, args: 0
+  %5_0 <- %4_0
+  terminator: goto(#4)
