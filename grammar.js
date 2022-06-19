@@ -60,7 +60,7 @@ module.exports = grammar({
         ')'
       ),
 
-    terminator: $ => seq('terminator:', choice($.goto, $.return, $.if, $.halt)),
+    terminator: $ => seq('terminator', ':', choice($.goto, $.return, $.if, $.halt)),
 
     goto: $ => seq('goto', '(', $.id, ')'),
     return: $ => seq('return', '(', $._operand, ')'),

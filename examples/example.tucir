@@ -10,6 +10,8 @@ block #6 (<- #1, #4) (-> #2, #3):
   terminator: if(%8_0, (#3, #2))
 
 block #2 (<- #6):
+  %18_0 <- true
+  %19_0 <- false
   terminator: return(0)
 
 block #3 (<- #6) (-> #4, #5):
