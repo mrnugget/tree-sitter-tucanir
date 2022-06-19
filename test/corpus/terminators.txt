@@ -1,0 +1,81 @@
+==================
+Goto terminator
+==================
+
+block_funk #1(node_id: #33, entry: #1)
+block #1:
+  terminator: goto(#6)
+
+---
+
+(source_file
+  (block_funk
+    (id)
+    (id)
+    (id)
+    (block
+      (id)
+      (terminator (goto (id))))))
+
+==================
+Return terminator
+==================
+
+block_funk #1(node_id: #33, entry: #1)
+block #1:
+  terminator: return(%1_0)
+
+block #2:
+  terminator: return(0)
+
+---
+
+(source_file
+  (block_funk
+    (id)
+    (id)
+    (id)
+    (block
+      (id)
+      (terminator (return (register))))
+     (block
+      (id)
+      (terminator (return (number)))) ))
+
+==================
+If terminator
+==================
+
+block_funk #1(node_id: #33, entry: #1)
+block #1:
+  terminator: if(%8_0, (#3, #2))
+
+---
+
+(source_file
+  (block_funk
+    (id)
+    (id)
+    (id)
+    (block
+      (id)
+      (terminator (if (register) (id) (id))))))
+
+==================
+Halt terminator
+==================
+
+block_funk #1(node_id: #33, entry: #1)
+block #1:
+  terminator: halt
+
+---
+
+(source_file
+  (block_funk
+    (id)
+    (id)
+    (id)
+    (block
+      (id)
+      (terminator (halt)))))

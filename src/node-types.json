@@ -258,6 +258,37 @@
     }
   },
   {
+    "type": "if",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "id",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "register",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "instruction",
     "named": true,
     "fields": {
@@ -332,6 +363,10 @@
         "required": true,
         "types": [
           {
+            "type": "(",
+            "named": false
+          },
+          {
             "type": ")",
             "named": false
           },
@@ -357,6 +392,33 @@
       "types": [
         {
           "type": "id",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "return",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "register",
+          "named": true
+        },
+        {
+          "type": "true",
           "named": true
         }
       ]
@@ -402,6 +464,18 @@
       "types": [
         {
           "type": "goto",
+          "named": true
+        },
+        {
+          "type": "halt",
+          "named": true
+        },
+        {
+          "type": "if",
+          "named": true
+        },
+        {
+          "type": "return",
           "named": true
         }
       ]
@@ -534,6 +608,10 @@
     "named": false
   },
   {
+    "type": "halt",
+    "named": true
+  },
+  {
     "type": "id",
     "named": true
   },
@@ -542,16 +620,24 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
     "type": "number",
     "named": true
   },
   {
-    "type": "phi(",
+    "type": "phi",
     "named": false
   },
   {
     "type": "register",
     "named": true
+  },
+  {
+    "type": "return",
+    "named": false
   },
   {
     "type": "terminator:",

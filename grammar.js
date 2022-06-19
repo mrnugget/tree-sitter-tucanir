@@ -46,9 +46,9 @@ module.exports = grammar({
     call: $ => seq('call', field('target', $.identifier), ', args:', $.args),
     args: $ => seq('(', commaSep($._operand), ')'),
 
-    phi: $ => seq('phi(', field('operands', $._phi_operands)),
+    phi: $ => seq('phi', field('operands', $._phi_operands)),
 
-    _phi_operands: $ => seq(commaSep($.var), ')'),
+    _phi_operands: $ => seq('(', commaSep($.var), ')'),
 
     var: $ =>
       seq(
@@ -60,9 +60,12 @@ module.exports = grammar({
         ')'
       ),
 
-    terminator: $ => seq('terminator:', choice($.goto)),
+    terminator: $ => seq('terminator:', choice($.goto, $.return, $.if, $.halt)),
 
     goto: $ => seq('goto', '(', $.id, ')'),
+    return: $ => seq('return', '(', $._operand, ')'),
+    if: $ => seq('if', '(', $._operand, ',', '(', $.id, ',', $.id, ')', ')'),
+    halt: $ => 'halt',
 
     _operand: $ => choice($.register, $.number, $.true, $.false),
 

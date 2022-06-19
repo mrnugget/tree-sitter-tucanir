@@ -328,7 +328,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "phi("
+          "value": "phi"
         },
         {
           "type": "FIELD",
@@ -343,6 +343,10 @@
     "_phi_operands": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
         {
           "type": "CHOICE",
           "members": [
@@ -432,6 +436,18 @@
             {
               "type": "SYMBOL",
               "name": "goto"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "return"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "if"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "halt"
             }
           ]
         }
@@ -457,6 +473,76 @@
           "value": ")"
         }
       ]
+    },
+    "return": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "return"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_operand"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "if": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "if"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_operand"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "id"
+        },
+        {
+          "type": "STRING",
+          "value": ","
+        },
+        {
+          "type": "SYMBOL",
+          "name": "id"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "halt": {
+      "type": "STRING",
+      "value": "halt"
     },
     "_operand": {
       "type": "CHOICE",
