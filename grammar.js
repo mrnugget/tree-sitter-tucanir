@@ -28,7 +28,11 @@ module.exports = grammar({
       ),
 
     instruction: $ =>
-      seq(field('target', $.register), '<-', choice($.move, $.bin_op)),
+      seq(
+        field('target', $.register),
+        '<-',
+        choice($.phi, $.call, $.move, $.bin_op)
+      ),
 
     move: $ => field('operand', $._operand),
 
@@ -37,6 +41,23 @@ module.exports = grammar({
         field('lhs', $._operand),
         field('operator', choice('+', '-', '>', '<', '<=', '=>', '==', '!=')),
         field('rhs', $._operand)
+      ),
+
+    call: $ => seq('call', field('target', $.identifier), ', args:', $.args),
+    args: $ => seq('(', commaSep($._operand), ')'),
+
+    phi: $ => seq('phi(', field('operands', $._phi_operands)),
+
+    _phi_operands: $ => seq(commaSep($.var), ')'),
+
+    var: $ =>
+      seq(
+        'var',
+        '(',
+        field('block_id', $.id),
+        ',',
+        field('source', $._operand),
+        ')'
       ),
 
     terminator: $ => seq('terminator:', choice($.goto)),
@@ -56,6 +77,8 @@ module.exports = grammar({
     false: $ => 'false',
 
     register: $ => /%[\d_]+/,
+
+    identifier: $ => /[a-zA-Z_]+\d*/,
   },
 });
 

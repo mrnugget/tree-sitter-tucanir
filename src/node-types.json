@@ -1,5 +1,32 @@
 [
   {
+    "type": "args",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "false",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "register",
+          "named": true
+        },
+        {
+          "type": "true",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "bin_op",
     "named": true,
     "fields": {
@@ -190,6 +217,32 @@
     }
   },
   {
+    "type": "call",
+    "named": true,
+    "fields": {
+      "target": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "args",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "goto",
     "named": true,
     "fields": {},
@@ -228,7 +281,15 @@
           "named": true
         },
         {
+          "type": "call",
+          "named": true
+        },
+        {
           "type": "move",
+          "named": true
+        },
+        {
+          "type": "phi",
           "named": true
         }
       ]
@@ -256,6 +317,30 @@
           },
           {
             "type": "true",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "phi",
+    "named": true,
+    "fields": {
+      "operands": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "var",
             "named": true
           }
         ]
@@ -323,6 +408,44 @@
     }
   },
   {
+    "type": "var",
+    "named": true,
+    "fields": {
+      "block_id": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "id",
+            "named": true
+          }
+        ]
+      },
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "false",
+            "named": true
+          },
+          {
+            "type": "number",
+            "named": true
+          },
+          {
+            "type": "register",
+            "named": true
+          },
+          {
+            "type": "true",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "!=",
     "named": false
   },
@@ -344,6 +467,10 @@
   },
   {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": ", args:",
     "named": false
   },
   {
@@ -395,6 +522,10 @@
     "named": false
   },
   {
+    "type": "call",
+    "named": false
+  },
+  {
     "type": "false",
     "named": true
   },
@@ -407,8 +538,16 @@
     "named": true
   },
   {
+    "type": "identifier",
+    "named": true
+  },
+  {
     "type": "number",
     "named": true
+  },
+  {
+    "type": "phi(",
+    "named": false
   },
   {
     "type": "register",
@@ -421,5 +560,9 @@
   {
     "type": "true",
     "named": true
+  },
+  {
+    "type": "var",
+    "named": false
   }
 ]
